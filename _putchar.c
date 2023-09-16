@@ -2,3 +2,7 @@
  /**
   * _putchar - copies c to stdout
   * @c : character to print
+  * Return : rerurns 1
+  * On error , returns -1
+  */
+
