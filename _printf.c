@@ -1,110 +1,93 @@
 #include "main.h"
-void print_buffer(char buffer[], int *buff_ind);
+#include <stdarg.h>
 /**
- * _printf - Printf function
- * @format: format.
- * Return: Printed chars.
+ * _printf - Produces output according to a format.
+ * @format: Format string containing the characters and specifiers.
+ *
+ * Return: The number of characters printed (excluding the null byte).
  */
 int _printf(const char *format, ...)
-
 {
+	va_list args;
+	int cprint = 0;
 
-int i, printed = 0, printed_chars = 0;
+	if (format == NULL)
+		return (-1);
 
-int flags, width, precision, size, buff_ind = 0;
+	va_start(args, format);
+	cprint = process_format(format, args);
+	va_end(args);
 
-va_list list;
-
-char buffer[BUFF_SIZE];
-
-if (format == NULL)
-
-return (-1);
-
-va_start(list, format);
-
-for (i = 0; format && format[i] != '\0'; i++)
-
-{
-
-if (format[i] != '%')
-
-{
-
-buffer[buff_ind++] = format[i];
-
-if (buff_ind == BUFF_SIZE)
-
-print_buffer(buffer, &buff_ind);
-
-/* write(1, &format[i], 1);*/
-
-printed_chars++;
-
+	return (cprint);
 }
-
-else
-
-{
-
-print_buffer(buffer, &buff_ind);
-
-flags = get_flags(format, &i);
-
-width = get_width(format, &i, list);
-
-precision = get_precision(format, &i, list);
-
-size = get_size(format, &i);
-
-++i;
-
-printed = handle_print(format, &i, list, buffer,
-
-flags, width, precision, size);
-
-if (printed == -1)
-
-return (-1);
-
-printed_chars += printed;
-
-}
-
-}
-
-
-
-print_buffer(buffer, &buff_ind);
-
-
-
-va_end(list);
-
-
-
-return (printed_chars);
-
-}
-
-
 
 /**
- * print_buffer - Prints the contents of the buffer if it exist
- * @buffer: Array of chars
- * @buff_ind: Index at which to add next char, represents the length.
+ * process_format - Processes format specifiers in the format string.
+ * @format: Format string containing the characters and specifiers.
+ * @args: va_list containing the arguments for format specifiers.
+ *
+ * Return: The number of characters printed.
  */
-
-void print_buffer(char buffer[], int *buff_ind)
-
+int process_format(const char *format, va_list args)
 {
+	int cprint = 0;
 
-if (*buff_ind > 0)
+	while (*format)
+	{
+		if (*format == '%')
+		{
+			format++;
+			if (*format == '\0')
+				break;
 
-write(1, &buffer[0], *buff_ind);
+			int chars_printed = process_specifier(*format, args);
+			if (chars_printed == -1)
+				return (-1);
 
+			cprint += chars_printed;
+			format++;
+		}
+		else
+		{
+			_putchar(*format);
+			cprint++;
+			format++;
+		}
+	}
 
+	return (cprint);
+}
 
-*buff_ind = 0;
+/**
+ * process_specifier - Processes a format specifier and prints its value.
+ * @specifier: The format specifier character.
+ * @args: va_list containing the arguments for format specifiers.
+ *
+ * Return: The number of characters printed for this specifier.
+ */
+int process_specifier(char specifier, va_list args)
+{
+	int cprint = 0;
 
+	switch (specifier)
+	{
+		case 'c':
+			cprint += print_char(va_arg(args, int));
+			break;
+		case 's':
+			cprint += print_string(va_arg(args, char *));
+			break;
+		case 'i':
+		case 'd':
+			cprint += print_int(va_arg(args, int));
+			break;
+		/* Add more format specifiers as needed */
+		default:
+			_putchar('%');
+			_putchar(specifier);
+			cprint += 2;
+			break;
+	}
+
+	return (cprint);
 }
