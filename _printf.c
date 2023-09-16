@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "main.h"
  /**
   * _printf - function that prints output
@@ -11,3 +12,6 @@ int _printf(const char *format, ...)
 	char *str, 
         
 }
+=======
+inc
+>>>>>>> eecd5c93f17480f6e9f9c633475b6df8fa06cba6
