@@ -1,16 +1,18 @@
 #include "main.h"
 /**
- * _strlen - Returns the length of the string
- * @s : string to calculate its length
- * Return : length of the string
+ * print_string - Print string
+ * @list: list.
+ *
+ * Return: String length.
  */
-int _strlen(char *s)
-{
-	int i;
 
-	for (i = 0; s[i] != '\0'; i++)
-	{
-		;
-	}
-	return (i);
+int print_string(va_list list)
+{
+	char *p;
+	int p_len;
+
+	p = va_arg(list, char*);
+	p_len = print((p != NULL) ? p : "(null)");
+
+	return (p_len);
 }
