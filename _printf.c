@@ -39,8 +39,8 @@ int _printf(const char *format, ...)
 				params.l_modifier || params.h_modifier ? p - 1 : 0);
 		else
 			sum += get_print_func(p, ap, &params);
-		_putchar(BUF_FLUSH);
-		va_end(ap);
-		return (sum);
 	}
+	_putchar(BUF_FLUSH);
+	v_end(ap);
+	return (sum)
 }
