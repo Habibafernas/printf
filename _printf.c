@@ -22,15 +22,17 @@ int _printf(const char *format, ...)
 	{
 		init_params(&params, ap);
 		if (*p != '%')
+		{
 			sum += _putchar(*p);
 			continue;
+		}
 		start = p;
 		p++;
 		while (get_flag(p, &params)) /*while char at p is flage char */
 			p++;
 		p = get_width(p, &params, ap);
 		p = get_precision(p, &params, ap);
-		if (get_modofier(p, &params))
+		if (get_modifier(p, &params))
 			p++;
 		if (!get_specifier(p))
 			sum += print_from_to(start, p,
