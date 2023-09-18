@@ -1,7 +1,7 @@
 #include "main.h"
 /**
  * _printf - prints anything
- * @format : the format string
+ * @format: the format string
  *
  * Return: number of bytes printed
  */
@@ -28,8 +28,10 @@ int _printf(const char *format, ...)
 		}
 		start = p;
 		p++;
-		while (get_flag(p, &params)) /*while char at p is flage char */
-			p++;
+		while (get_flag(p, &params)) /* while char at p is flag char */
+		{
+			p++; /* next char */
+		}
 		p = get_width(p, &params, ap);
 		p = get_precision(p, &params, ap);
 		if (get_modifier(p, &params))
