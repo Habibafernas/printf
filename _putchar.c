@@ -3,8 +3,8 @@
  *buffer - Save the character in a buffer
  *@c : Character
  *
- * Return : 1
- */
+ * Return: 1
+ **/
 int buffer(char c)
 {
 	static char buffering[1024];
@@ -19,5 +19,5 @@ int buffer(char c)
 	{
 		buffering[i++] = c;
 	}
-	return (-1);
+	return (1);
 }
