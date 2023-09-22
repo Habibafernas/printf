@@ -8,19 +8,19 @@
  */
 int _putchar(char c)
 {
-        static int i;
-        static char buf[OUTPUT_BUF_SIZE];
+	static int j;
+	static char buf[OUTPUT_BUF_SIZE];
 
-        if (c == BUF_FLUSH || i >= OUTPUT_BUF_SIZE)
-        {
-                write(1, buf, i);
-                i = 0;
-        }
-        if (c != BUF_FLUSH)
+	if (c == BUF_FLUSH || j >= OUTPUT_BUF_SIZE)
 	{
-                buf[i++] = c;
+		write(1, buf, j);
+		j = 0;
 	}
-        return (1);
+	if (c != BUF_FLUSH)
+	{
+	buf[j++] = c;
+	}
+	return (1);
 }
 
 
@@ -32,9 +32,9 @@ int _putchar(char c)
  */
 int _puts(char *str)
 {
-        char *a = str;
+	char *h = str;
 
-        while (*str)
-                _putchar(*str++);
-        return (str - a);
+	while (*str)
+		_putchar(*str++);
+	return (str - h);
 }

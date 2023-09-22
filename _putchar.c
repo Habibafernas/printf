@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- *buffer - Save the character in a buffer
+ *buffer - Save a character in a buffer
  *@c : Character
  *
  * Return: 1
@@ -8,16 +8,16 @@
 int buffer(char c)
 {
 	static char buffering[1024];
-	static int i;
+	static int p;
 
-	if (c == -1 || i == 1024)
+	if (c == -1 || p == 1024)
 	{
-		write(1, buffering, i);
-		i = 0;
+		write(1, buffering, p);
+		p = 0;
 	}
 	if (c != -1)
 	{
-		buffering[i++] = c;
+		buffering[p++] = c;
 	}
 	return (1);
 }

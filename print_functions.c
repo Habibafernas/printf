@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * print_char - prints character
+ * print_char - prints a character
  * @ap: argument pointer
  * @params: the parameters struct
  *
@@ -10,19 +10,19 @@
 int print_char(va_list ap, params_t *params)
 {
 	char pad_char = ' ';
-	unsigned int pad = 1, sum = 0, ch = va_arg(ap, int);
+	unsigned int p = 1, m = 0, ch = va_arg(ap, int);
 
 	if (params->minus_flag)
-		sum += _putchar(ch);
-	while (pad++ < params->width)
-		sum += _putchar(pad_char);
+		m += _putchar(ch);
+	while (p++ < params->width)
+		m += _putchar(pad_char);
 	if (!params->minus_flag)
-		sum += _putchar(ch);
-	return (sum);
+		m += _putchar(ch);
+	return (m);
 }
 
 /**
- * print_int - prints integer
+ * print_int - prints an integer
  * @ap: argument pointer
  * @params: the parameters struct
  *
@@ -42,7 +42,7 @@ int print_int(va_list ap, params_t *params)
 }
 
 /**
- * print_string - prints string
+ * print_string - prints a string
  * @ap: argument pointer
  * @params: the parameters struct
  *
@@ -50,15 +50,15 @@ int print_int(va_list ap, params_t *params)
  */
 int print_string(va_list ap, params_t *params)
 {
-	char *str = va_arg(ap, char *), pad_char = ' ';
+	char *s = va_arg(ap, char *), pad_char = ' ';
 	unsigned int pad = 0, sum = 0, i = 0, j;
 
 	(void)params;
-	switch ((int)(!str))
+	switch ((int)(!s))
 		case 1:
-			str = NULL_STRING;
+			s = NULL_STRING;
 
-	j = pad = _strlen(str);
+	j = pad = _strlen(s);
 	if (params->precision < pad)
 		j = pad = params->precision;
 
@@ -66,9 +66,9 @@ int print_string(va_list ap, params_t *params)
 	{
 		if (params->precision != UINT_MAX)
 			for (i = 0; i < pad; i++)
-				sum += _putchar(*str++);
+				sum += _putchar(*s++);
 		else
-			sum += _puts(str);
+			sum += _puts(s);
 	}
 	while (j++ < params->width)
 		sum += _putchar(pad_char);
@@ -76,15 +76,15 @@ int print_string(va_list ap, params_t *params)
 	{
 		if (params->precision != UINT_MAX)
 			for (i = 0; i < pad; i++)
-				sum += _putchar(*str++);
+				sum += _putchar(*s++);
 		else
-			sum += _puts(str);
+			sum += _puts(s);
 	}
 	return (sum);
 }
 
 /**
- * print_percent - prints string
+ * print_percent - prints a string
  * @ap: argument pointer
  * @params: the parameters struct
  *
@@ -107,7 +107,7 @@ int print_percent(va_list ap, params_t *params)
 int print_S(va_list ap, params_t *params)
 {
 	char *str = va_arg(ap, char *);
-	char *hex;
+	char *h;
 	int sum = 0;
 
 	if ((int)(!str))
@@ -118,10 +118,10 @@ int print_S(va_list ap, params_t *params)
 		{
 			sum += _putchar('\\');
 			sum += _putchar('x');
-			hex = convert(*str, 16, 0, params);
-			if (!hex[1])
+			h = convert(*str, 16, 0, params);
+			if (!h[1])
 				sum += _putchar('0');
-			sum += _puts(hex);
+			sum += _puts(h);
 		}
 		else
 		{

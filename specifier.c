@@ -120,18 +120,18 @@ int get_modifier(char *s, params_t *params)
  */
 char *get_width(char *s, params_t *params, va_list ap)
 {
-	int d = 0;
+	int i = 0;
 
 	if (*s == '*')
 	{
-		d = va_arg(ap, int);
+		i = va_arg(ap, int);
 		s++;
 	}
 	else
 	{
 		while (_isdigit(*s))
-			d = d * 10 + (*s++ - '0');
+			i = i * 10 + (*s++ - '0');
 	}
-	params->width = d;
+	params->width = i;
 	return (s);
 }
